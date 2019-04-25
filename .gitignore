@@ -1,0 +1,5 @@
+.flaskenv
+.env
+.vscode
+__pycache__
+*.pyc
