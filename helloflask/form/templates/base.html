@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {# 追加块内容使用{{super()}}#}
+    {% block head %}
+    {% block metas %}
+        <meta charset="utf-8">
+    {% endblock metas %}
+
+    <title>{% block title %}Form - HelloFlask{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    {% block styles %}
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css' ) }}">
+    {% endblock %}
+    {% endblock %}
+</head>
+
+<body>
+    <nav>
+        {% block nav %}
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+            </ul>
+        {% endblock %}
+    </nav>
+
+    <main>
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{message}}</div>
+        {% endfor %}
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        {% block footer %}
+            <small>你好!</small>
+        {% endblock %}
+    </footer>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
