@@ -1,3 +1,6 @@
+#  邮件这章不深究了吧
+
+
 import os
 from flask import Flask,render_template,flash,redirect,request,url_for
 from flask_mail import Mail,Message
