@@ -1,10 +1,10 @@
 import os
-from flask import Flask,render_template,flash,redirect,url_for,Markup
+from flask import Flask, render_template, flash, redirect, url_for, Markup
 
-app=Flask(__name__)
-app.secret_key=os.getenv('SECRET_KEY','secret key')
-app.jinja_env.trim_blocks=True
-app.jinja_env.lstrip_blocks=True
+app = Flask(__name__)
+app.secret_key = os.getenv('SECRET_KEY', 'secret key')
+app.jinja_env.trim_blocks = True
+app.jinja_env.lstrip_blocks = True
 
 user = {
     'username': 'Grey Li',
@@ -24,30 +24,36 @@ movies = [
     {'name': 'CoCo', 'year': '2017'},
 ]
 
+
 @app.route('/watchlist')
 def watchlist():
-    return render_template('watchlist.html',user=user,movies=movies)
+    return render_template('watchlist.html', user=user, movies=movies)
+
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+
 #  注册模板上下文handler
 @app.context_processor
 def inject_info():
-    foo='I am foo.'
+    foo = 'I am foo.'
     return dict(foo=foo)
     # return {'foo':foo}
+
 
 #  注册全局模板函数
 @app.template_global()
 def bar():
     return 'I am bar.'
 
+
 #  注册模板过滤器
 @app.template_filter()
 def musical(s):
     return s + Markup('&#9835;')
+
 
 #  注册模板测试器
 @app.template_test()
@@ -56,9 +62,10 @@ def baz(n):
         return True
     return False
 
+
 @app.route('/watchlist2')
 def watchlist_with_static():
-    return render_template('watchlist_with_static.html',user=user,movies=movies)
+    return render_template('watchlist_with_static.html', user=user, movies=movies)
 
 
 @app.route('/flash')
@@ -66,10 +73,12 @@ def just_flash():
     flash('I am flash,who is looking for me?')
     return redirect(url_for('index'))
 
+
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('errors/404.html'),404
+    return render_template('errors/404.html'), 404
+
 
 @app.errorhandler(500)
 def internal_server_error(e):
-    return render_template('errors/500.html'),500
+    return render_template('errors/500.html'), 500
